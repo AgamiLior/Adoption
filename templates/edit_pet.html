@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Edit Pet Page</title>
+</head>
+
+<h1>Update {{ pet.name }} information</h1>
+
+{% if pet.photo_url %}
+<img src="{{ pet.photo_url }}">
+{% else %}
+<b>There is no Picture for this Pet</b>
+{% endif %}
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    {% for field in form if field.widget.input_type != 'hidden'%}
+
+    <div >
+        {{ field.label }}
+        {{ field(class="form-control") }}
+
+        <span>
+            {% if field.errors %}
+            {% for error in field.errors %}
+            <b class="text-danger">{{ error }}</b>
+            {% endfor %}
+            {% endif %}
+        </span>
+
+    </div>
+
+    {% endfor %}
+    <button class="btn btn-primary" type="submit">Save Updates</button>
+</form>
+
+<a href="/" class="btn btn-success">Go to HomePage</a>
+</body>
+
+</html>
